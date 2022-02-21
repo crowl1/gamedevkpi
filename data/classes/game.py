@@ -45,3 +45,16 @@ class GameField:
             return True
         else:
             return False
+        
+
+    def set_wall(self, wall):
+        self.field[wall.coordinates_start.x][wall.coordinates_start.y] = 4
+        self.field[wall.coordinates_end.x][wall.coordinates_end.y] = 4
+        self.field[wall.coordinates_middle.x][wall.coordinates_middle.y] = 4
+        return self.field
+
+    def get_field(self):
+        return self.field
+
+    def restore_field(self, old_field):
+        self.field = old_field
