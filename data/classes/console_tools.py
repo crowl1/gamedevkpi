@@ -11,3 +11,11 @@ class Tools:
             command = 'cls'
         os.system(command)
         pass
+
+
+def game_mode_selection():
+    '''
+    перша лаба, вибір для гравця
+    '''
+    print("1)PvP\n2)PvB\n3)BvB")
+    pass
