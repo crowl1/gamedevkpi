@@ -13,7 +13,7 @@ class GameField:
     def set_graph(self):
         grid = Grid(matrix=self.graph_prepare(self.field))
         return grid
-    
+
     def path_finder(self, players):
         grid = self.graph
         is_first_player_way = False
@@ -45,7 +45,6 @@ class GameField:
             return True
         else:
             return False
-        
 
     def set_wall(self, wall):
         self.field[wall.coordinates_start.x][wall.coordinates_start.y] = 4
@@ -58,3 +57,10 @@ class GameField:
 
     def restore_field(self, old_field):
         self.field = old_field
+
+
+class Player:
+    def __init__(self, player_type, player_number):
+        self.player_type = player_type  # False - бот
+        self.player_number = player_number
+        self.walls_amount = 10
