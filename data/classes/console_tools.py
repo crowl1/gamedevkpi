@@ -116,3 +116,9 @@ def print_places_to_move(places_to_move):
         print(f"{counter} - {place.x} {place.y}")
         counter += 1
     print("Введіть 'back' щоб повернутися назад")
+
+def choose_action_message(player):
+    '''
+    перша лаба
+    '''
+    print(f"{player.player_number} виберідь, будь ласка, дію.\n1 - Походити героєм.\n2 - Поставити стіну.")

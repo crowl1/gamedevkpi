@@ -1,7 +1,7 @@
 import sys
 
 
-from data.classes.console_tools import Tools, game_mode_selection, send_wall, print_field, send_move, send_jump, print_places_to_move
+from data.classes.console_tools import Tools, game_mode_selection, send_wall, print_field, send_move, send_jump, print_places_to_move, choose_action_message
 from data.classes.coordinate import Coordinate
 from data.classes.game import GameField, Player
 from data.classes.user import User
@@ -101,8 +101,17 @@ def move_player(player, game_field, list_of_players):
         pass
 
 
-def game():
-    pass
+def game(player, game_field, list_of_players):
+    Tools.clear_console() #перша лаба
+    print_field(game_field.field) #перша лаба
+    choose_action_message(player) #перша лаба
+    game_input = User.enter(player, "choose", game_field, list_of_players)
+    if game_input == "1":
+        move_player(player, game_field, list_of_players)
+    elif game_input == "2":
+        build_wall(player, game_field, list_of_players)
+    else:
+        game(player, game_field, list_of_players)
 
 
 if __name__ == '__main__':
