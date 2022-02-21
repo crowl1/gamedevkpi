@@ -1,9 +1,12 @@
+import sys
+
+
 from data.classes.console_tools import game_mode_selection
 from data.classes.game import GameField, Player
 from data.classes.user import User
 
 
-def game():
+def start_game():
     game_field = GameField() # створюємо поле
     first_player = Player(True, 1)
     second_player = Player(False, 2)
@@ -22,8 +25,13 @@ def game():
         first_player = Player(False, 1)
         second_player = Player(False, 2)
     else:
-        game()
+        start_game()
+    
+
+    list_of_players = [first_player, second_player]
+    counter = 0
+    number_moves = 0  # Кількість ходів
 
 
 if __name__=='__main__':
-    game()
+    start_game()
