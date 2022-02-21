@@ -1,1 +1,1 @@
-# gamedevkpi
+# quoridor_game
