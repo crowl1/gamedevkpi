@@ -1,5 +1,8 @@
+from data.classes.game import GameField
+
+
 def game():
-    pass
+    game_field = GameField()  # створюємо поле
 
 
 if __name__=='__main__':
