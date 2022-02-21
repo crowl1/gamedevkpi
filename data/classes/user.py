@@ -13,8 +13,8 @@ class User:
                 return player.action[0]
         elif types == "playAgain":
             if player.player_type:
-                return input() # - перша лаба
-    
+                return input()  # - перша лаба
+
     @staticmethod
     def ask_game_mode(text=None):
         state = input("Input your side: ")

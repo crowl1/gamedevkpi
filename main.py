@@ -1,7 +1,7 @@
 import sys
 
 
-from data.classes.console_tools import Tools, game_mode_selection, send_wall
+from data.classes.console_tools import Tools, game_mode_selection, send_wall, print_field, send_move, send_jump
 from data.classes.coordinate import Coordinate
 from data.classes.game import GameField, Player
 from data.classes.user import User
@@ -72,8 +72,33 @@ def build_wall(player, game_field, list_of_players, counter=0):
             game(player, game_field, list_of_players)
 
 
-def move_player():
-    pass
+def move_player(player, game_field, list_of_players):
+    Tools.clear_console() #перша лаба
+    print_field(game_field.field) #перша лаба
+    player.set_places_to_move(game_field, list_of_players)
+    print_places_to_move(player.places_to_move) #перша лаба
+    try:
+        move_player_input = User.enter(player, "move")
+        if player.action is not None:
+            move_player_input = move_player_input.is_in(player.places_to_move)
+        if move_player_input == "back":
+            game(player, game_field, list_of_players)
+        player.set_next_position(
+            player.places_to_move[int(move_player_input) - 1])
+        if player.can_move_here:
+            game_field.move_player(player)
+            if player.is_jump and player.player_type is False and player.current_position.is_in(
+                    player.jump_list) is not None:
+                send_jump(player)
+            elif player.player_type is False:
+                send_move(player)
+            player.is_jump = False
+            player.jump_list = None
+            player.action = None
+        else:
+            move_player(player, game_field, list_of_players)
+    except Exception as e:
+        pass
 
 
 def game():
