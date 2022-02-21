@@ -1,7 +1,7 @@
 import sys
 
 
-from data.classes.console_tools import Tools, game_mode_selection, send_wall, print_field, send_move, send_jump
+from data.classes.console_tools import Tools, game_mode_selection, send_wall, print_field, send_move, send_jump, print_places_to_move
 from data.classes.coordinate import Coordinate
 from data.classes.game import GameField, Player
 from data.classes.user import User
