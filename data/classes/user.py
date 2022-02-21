@@ -14,3 +14,11 @@ class User:
         elif types == "playAgain":
             if player.player_type:
                 return input() # - перша лаба
+    
+    @staticmethod
+    def ask_game_mode(text=None):
+        state = input("Input your side: ")
+        if text is None:
+            return "2" if state.lower() == "black" else "3"
+        else:
+            return text
