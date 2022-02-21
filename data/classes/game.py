@@ -1,5 +1,6 @@
 from pathfinding.core.grid import Grid
 from pathfinding.finder.a_star import AStarFinder
+from data.classes.coordinate import Coordinate
 
 
 class GameField:
@@ -64,3 +65,17 @@ class Player:
         self.player_type = player_type  # False - бот
         self.player_number = player_number
         self.walls_amount = 10
+        self.current_position = self._set_start_position()
+        self.next_position = None
+        self.can_move_here = None
+        self.places_to_move = None
+        self.action = None
+        self.jump_list = None
+        self.is_jump = False
+        if self.player_number == 2:
+            self._for_win = [[16,i] for i in range(0,18,2)]
+        else:
+            self._for_win = [[0,i] for i in range(0,18,2)]
+
+    def _set_start_position(self):
+        return Coordinate(16, 8) if self.player_number == 1 else Coordinate(0, 8)
