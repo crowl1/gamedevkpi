@@ -1,4 +1,5 @@
 import copy
+import time
 
 from pathfinding.finder.a_star import AStarFinder
 from pathfinding.core.diagonal_movement import DiagonalMovement
@@ -12,7 +13,7 @@ count = 0
 
 
 class MinimaxAI:
-    def __init__(self, game_field, first_player, second_player, action=None, depth=+inf, parrent=None):
+    def __init__(self, game_field, first_player, second_player, action=None, depth=+inf):
         self.game_field = game_field
         self.first_player = first_player
         self.second_player = second_player
@@ -181,3 +182,26 @@ def get_paths_to_win(game_field, player_one, player_two):
             paths_for_second.append(path)
 
     return paths_for_first, paths_for_second
+
+
+def timer(func):
+    """
+    Декоратор для заміру часу виконання функції.
+    """
+    def calc_spend_time(*args, **kw):
+        start_time = time.time()
+        result = func(*args, **kw)
+        print(f"Алгоритм думав: {time.time() - start_time} сек.")
+        return result
+
+    return calc_spend_time
+
+
+def run_minimax(field_obj, depth, alpha, beta, maxPlayer, first_player, second_player):
+    eval, acting = minimax_ai(field_obj, depth, alpha, beta,
+                          maxPlayer, first_player, second_player)
+    global count
+    count = 0
+    for kid in acting.children:
+        if kid.minimax_eval == eval:
+            return kid.action

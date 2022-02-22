@@ -1,9 +1,13 @@
 from typing import List
+
 from pathfinding.core.grid import Grid
 from pathfinding.finder.a_star import AStarFinder
 from pathfinding.core.diagonal_movement import DiagonalMovement
+from infinity import inf
 
 from data.classes.coordinate import Coordinate
+import data.classes.minimaxai as minimaxai
+from data.classes.wall import Wall
 
 
 class AI:
@@ -19,6 +23,18 @@ class AI:
     def get_wall(self):
         return f"{self.coord.coordinates_start.x} {self.coord.coordinates_start.y} {self.coord.coordinates_end.x} {self.coord.coordinates_end.y}"
 
+    @minimaxai.timer
+    def choose(self, player, game_field, list_of_players):
+        player_two = list_of_players[1] if list_of_players[0].player_number == player.player_number else list_of_players[0]
+        bot_doing = minimaxai.run_minimax(game_field, depth=2, alpha=-inf, beta=+
+                                         inf, maxPlayer=True, first_player=player, second_player=player_two)
+        if type(bot_doing) == Wall or type(bot_doing) == Wall:
+            self.action = "2"
+            self.coord = bot_doing
+        else:
+            self.action = "1"
+            self.coord = bot_doing
+        return self.action
 
 class GameField:
     def __init__(self):
