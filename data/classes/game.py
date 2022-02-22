@@ -109,8 +109,43 @@ class GameField:
                             conn_points.append(((i / 2, j / 2), ((i + 2) / 2, j / 2)))
         return conn_points
 
+    @staticmethod
     def fill():
-        pass
+        field = []
+
+        for row_index in range(9):
+            if row_index != 8:
+                row_items = []
+                for row_item_index in range(9):
+                    if row_item_index != 8:
+                        row_items.append(0)
+                        row_items.append(3)
+                    else:
+                        row_items.append(0)
+                field.append(row_items)
+                field.append([3 for i in range(17)])
+            else:
+                row_items = []
+                for row_item_index in range(9):
+                    if row_item_index != 8:
+                        row_items.append(0)
+                        row_items.append(3)
+                    else:
+                        row_items.append(0)
+                field.append(row_items)
+        for i in range(16):
+            for j in range(16):
+                if i % 2 == 1 and j % 2 == 1:
+                    field[i][j] = 5
+        return field
+    
+    @staticmethod
+    def field_preparation(field):
+        center_real = 8
+        field[0][center_real] = 2
+        field[-1][center_real] = 1
+        return field
+
 
 
 
