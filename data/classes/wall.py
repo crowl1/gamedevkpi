@@ -2,7 +2,6 @@ import copy
 
 from data.classes.coordinate import Coordinate
 
-
 class Wall:
     def __init__(self, coordinates_start, coordinates_end, game_field):
         self.coordinates_start = coordinates_start

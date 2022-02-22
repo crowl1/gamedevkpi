@@ -6,6 +6,20 @@ from pathfinding.core.diagonal_movement import DiagonalMovement
 from data.classes.coordinate import Coordinate
 
 
+class AI:
+    def __init__(self, act, coord):
+        self.action = act
+        self.coord = coord
+
+    def move(self, player):
+        for index, step in enumerate(player.places_to_move):
+            if step.x == self.coord.x and step.y == self.coord.y:
+                return index + 1
+
+    def get_wall(self):
+        return f"{self.coord.coordinates_start.x} {self.coord.coordinates_start.y} {self.coord.coordinates_end.x} {self.coord.coordinates_end.y}"
+
+
 class GameField:
     def __init__(self):
         self.field = self.get_start_field()
