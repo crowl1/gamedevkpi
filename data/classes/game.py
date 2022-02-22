@@ -90,8 +90,24 @@ class GameField:
 
         return temp_field
     
-    def get_conn_points():
-        pass
+    @staticmethod
+    def get_conn_points(field) -> list:
+        conn_points = []
+        for i in range(0, len(field), 2):
+            for j in range(0, len(field[i]), 2):
+                if i != len(field) - 1 and j != len(field) - 1:
+                    if field[i][j + 1] == 3:
+                        conn_points.append(((i / 2, j / 2), (i / 2, (j + 2) / 2)))
+                    if field[i + 1][j] == 3:
+                        conn_points.append(((i / 2, j / 2), ((i + 2) / 2, j / 2)))
+                else:
+                    if i == len(field) - 1 and j != len(field) - 1:
+                        if field[i][j + 1] == 3:
+                            conn_points.append(((i / 2, j / 2), (i / 2, (j + 2) / 2)))
+                    if j == len(field) - 1 and i != len(field) - 1:
+                        if field[i + 1][j] == 3:
+                            conn_points.append(((i / 2, j / 2), ((i + 2) / 2, j / 2)))
+        return conn_points
 
     def fill():
         pass
