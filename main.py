@@ -33,6 +33,16 @@ def start_game():
     counter = 0
     number_moves = 0  # Кількість ходів
 
+    while not first_player.is_win() or not second_player.is_win():
+        game(list_of_players[counter], game_field, list_of_players)
+        if first_player.is_win() or second_player.is_win():
+            sys.exit()
+        game_field.graph = game_field.set_graph()
+        number_moves += 1
+        counter = 1 if counter == 0 else 0
+        # clear_console() #перша лаба
+    sys.exit()
+
 
 def build_wall(player, game_field, list_of_players, counter=0):
     Tools.clear_console() #перша лаба

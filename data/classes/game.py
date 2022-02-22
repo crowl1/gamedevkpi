@@ -1,5 +1,7 @@
 from pathfinding.core.grid import Grid
 from pathfinding.finder.a_star import AStarFinder
+from pathfinding.core.diagonal_movement import DiagonalMovement
+
 from data.classes.coordinate import Coordinate
 
 
@@ -12,8 +14,7 @@ class GameField:
         return True if 1 in self.field[0] or 2 in self.field[-1] else False
 
     def set_graph(self):
-        grid = Grid(matrix=self.graph_prepare(self.field))
-        return grid
+        return Grid(matrix=self.graph_prepare(self.field))
 
     def path_finder(self, players):
         grid = self.graph
@@ -79,3 +80,12 @@ class Player:
 
     def _set_start_position(self):
         return Coordinate(16, 8) if self.player_number == 1 else Coordinate(0, 8)
+
+    def is_win(self):
+        if self.player_number == 1:
+            if self.current_position.x == 0:
+                return True
+        if self.player_number == 2:
+            if self.current_position.x == 16:
+                return True
+        return False
