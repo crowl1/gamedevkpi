@@ -1,5 +1,7 @@
 import copy
 
+from pathfinding.finder.a_star import AStarFinder
+
 from data.classes.coordinate import Coordinate
 from data.classes.wall import Wall
 
@@ -72,3 +74,31 @@ def get_game_fields(walls, game_field, player_one, player_two):
                 game_fields.append((temp_field, temp_player, player_two, wall))
 
     return game_fields
+
+
+def get_paths_to_win(game_field, player_one, player_two):
+    grid = game_field.graph
+    paths_for_first = []
+    paths_for_second = []
+    for win_position in player_one.for_win:
+        grid.cleanup()
+        start = grid.node(player_one.current_position.y,
+                          player_one.current_position.x)
+        end = grid.node(win_position[1], win_position[0])
+
+        finder = AStarFinder(diagonal_movement=DiagonalMovement.never)
+        path, runs = finder.find_path(start, end, grid)
+        if len(path) >= 2:
+            paths_for_first.append(path)
+    for win_position in player_two.for_win:
+        grid.cleanup()
+        start = grid.node(player_two.current_position.y,
+                          player_two.current_position.x)
+        end = grid.node(win_position[1], win_position[0])
+
+        finder = AStarFinder(diagonal_movement=DiagonalMovement.never)
+        path, runs = finder.find_path(start, end, grid)
+        if len(path) >= 2:
+            paths_for_second.append(path)
+
+    return paths_for_first, paths_for_second
