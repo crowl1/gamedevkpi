@@ -2,9 +2,86 @@ import copy
 
 from pathfinding.finder.a_star import AStarFinder
 from pathfinding.core.diagonal_movement import DiagonalMovement
+from infinity import inf
 
 from data.classes.coordinate import Coordinate
 from data.classes.wall import Wall
+
+
+count = 0
+
+
+class MinimaxAI:
+    def __init__(self, game_field, first_player, second_player, action=None, depth=+inf, parrent=None):
+        self.game_field = game_field
+        self.first_player = first_player
+        self.second_player = second_player
+        self.action = action
+        self.depth = depth
+        self.minimax_eval = None
+        self.children = []
+        self.parrent = None
+        self.player_one_path = None
+        self.player_two_path = None
+
+
+def minimax_ai(obj_minimax, depth, alpha, beta, maximizingPlayer, player_one, player_two):
+    global count
+    count += 1
+    if depth == 0:
+        path_first, path_second = get_paths_to_win(
+            obj_minimax.game_field, player_one, player_two)  # список шляхів для виграшу
+        path_first = min(path_first, key=len)  # min пріоритет для першого
+        path_second = min(path_second, key=len)  # min пріоритет для другого
+        obj_minimax.player_one_path = path_first
+        obj_minimax.player_two_path = path_second
+
+        obj_minimax.minimax_eval = len(
+            obj_minimax.player_one_path) - len(obj_minimax.player_two_path)
+        return obj_minimax.minimax_eval, obj_minimax
+
+    if type(obj_minimax) != MinimaxAI:
+        obj_minimax = MinimaxAI(obj_minimax, player_one,
+                                player_two, action=None, depth=depth)
+    path_first, path_second = get_paths_to_win(
+        obj_minimax.game_field, player_one, player_two)
+    path_first = min(path_first, key=len)
+    path_second = min(path_second, key=len)
+    obj_minimax.player_one_path = path_first
+    obj_minimax.player_two_path = path_second
+    walls = get_all_walls(obj_minimax.game_field,
+                          player_one, player_two, path_second)
+    for wall in walls:
+        obj_minimax.children.append(
+            MinimaxAI(wall[0], wall[1], wall[2], wall[3], depth, obj_minimax))
+    next_move_one_player = get_all_moves(
+        obj_minimax.game_field, player_one, player_two, path_first)
+    obj_minimax.children.append(
+        MinimaxAI(next_move_one_player[0][0], next_move_one_player[0][1], next_move_one_player[0][2], next_move_one_player[0][3]))
+
+    if maximizingPlayer:
+        max_eval = -inf
+        for child_local in obj_minimax.children:
+            eval, act = minimax_ai(
+                child_local, depth - 1, alpha, beta, False, player_two, player_one)
+            max_eval = max(max_eval, eval)
+            alpha = max(alpha, eval)
+            obj_minimax.minimax_eval = alpha
+            if beta <= alpha:
+                break
+        return max_eval, obj_minimax
+
+    else:
+        min_eval = +inf
+        for child_local in obj_minimax.children:
+            eval, act = minimax_ai(
+                child_local, depth - 1, alpha, beta, True, player_one, player_two)
+            min_eval = min(min_eval, eval)
+            beta = min(beta, eval)
+            obj_minimax.minimax_eval = beta
+            if beta <= alpha:
+                break
+        return min_eval, obj_minimax
 
 
 def get_all_moves(game_field, first_player, second_player, path):
@@ -12,7 +89,8 @@ def get_all_moves(game_field, first_player, second_player, path):
     temp_field = copy.deepcopy(game_field)
     temp_player = copy.deepcopy(first_player)
     temp_second_player = copy.deepcopy(second_player)
-    temp_player.set_places_to_move(game_field, [temp_player, temp_second_player])
+    temp_player.set_places_to_move(
+        game_field, [temp_player, temp_second_player])
     index = get_all_step(temp_player, path)
     temp_player.set_next_position(temp_player.places_to_move[index])
     if temp_player.can_move_here:
