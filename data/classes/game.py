@@ -15,7 +15,7 @@ class GameField:
         return True if 1 in self.field[0] or 2 in self.field[-1] else False
 
     def set_graph(self):
-        return Grid(matrix=self.graph_prepare(self.field))
+        return Grid(matrix=self.gen_graph(self.field))
 
     def path_finder(self, players):
         grid = self.graph
@@ -60,6 +60,42 @@ class GameField:
 
     def restore_field(self, old_field):
         self.field = old_field
+    
+    def move_player(self, player):
+        self.field[player.current_position.x][player.current_position.y] = 0
+        self.field[player.next_position.x][player.next_position.y] = player.player_number
+        player.current_position = player.next_position
+
+    def get_start_field(self):
+        return self.field_preparation(self.fill())
+    
+    @staticmethod
+    def gen_graph(field):
+        temp_field = []
+        for i in range(len(field[0])):
+            temp_field.append([])
+            for j in range(len(field[1])):
+                if field[i][j] == 0:
+                    temp_field[i].append(100)  # порожня клітка
+                elif field[i][j] == 3:
+                    temp_field[i].append(100)  # порожня клітка
+                elif field[i][j] == 4:
+                    temp_field[i].append(0)  # стіна
+                elif field[i][j] == 5:
+                    temp_field[i].append(0)  # стіна
+                elif field[i][j] == 1:
+                    temp_field[i].append(49)  # геймер
+                elif field[i][j] == 2:
+                    temp_field[i].append(49)  # геймер
+
+        return temp_field
+    
+    def get_conn_points():
+        pass
+
+    def fill():
+        pass
+
 
 
 class Player:
