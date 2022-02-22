@@ -1,7 +1,7 @@
 import sys
 
 
-from data.classes.console_tools import Tools, game_mode_selection, send_wall, print_field, send_move, send_jump, print_places_to_move, choose_action_message
+from data.classes.console_tools import Tools, game_mode_selection, send_wall, print_field, send_move, send_jump, print_places_to_move, choose_action_message, place_the_wall_message
 from data.classes.coordinate import Coordinate
 from data.classes.game import GameField, Player
 from data.classes.user import User
@@ -46,10 +46,10 @@ def start_game():
 
 def build_wall(player, game_field, list_of_players, counter=0):
     Tools.clear_console() #перша лаба
-    # print_field(game_field.field) #перша лаба
+    print_field(game_field.field) #перша лаба
     if counter < 5:
         if player.walls_amount > 0:
-            # place_the_wall_message() #перша лаба
+            place_the_wall_message() #перша лаба
             wall_input = User.enter(player, "wall")
             if wall_input == "back":
                 game(player, game_field, list_of_players)
