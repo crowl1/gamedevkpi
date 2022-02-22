@@ -89,3 +89,56 @@ class Player:
             if self.current_position.x == 16:
                 return True
         return False
+    
+
+    def set_places_to_move():
+        pass
+
+
+    def up(self):
+        return Coordinate(self.current_position.x - 2, self.current_position.y)
+    
+    def check_up(self, field):
+        return True if field[self.current_position.x - 1][self.current_position.y] == 3 else False
+    
+    def player_check_up(self, second_player):
+        if self.current_position.x - 2 == second_player.x and self.current_position.y == second_player.y:
+            return True
+        return False
+
+    def down(self):
+        return Coordinate(self.current_position.x + 2, self.current_position.y)
+    
+    def check_down(self, field):
+        return True if field[self.current_position.x + 1][self.current_position.y] == 3 else False
+    
+    def player_check_down(self, second_player):
+        if self.current_position.x + 2 == second_player.x and self.current_position.y == second_player.y:
+            return True
+        return False
+
+    def left(self):
+        return Coordinate(self.current_position.x, self.current_position.y - 2)
+    
+    def check_left(self, field):
+        return True if field[self.current_position.x][self.current_position.y - 1] == 3 else False
+    
+    def player_check_left(self, second_player):
+        if self.current_position.x == second_player.x and self.current_position.y - 2 == second_player.y:
+            return True
+        return False
+
+    def right(self):
+        return Coordinate(self.current_position.x, self.current_position.y + 2)
+
+    def check_right(self, field):
+        return True if field[self.current_position.x][self.current_position.y + 1] == 3 else False
+
+    def player_check_right(self, second_player):
+        if self.current_position.x == second_player.x and self.current_position.y + 2 == second_player.y:
+            return True
+        return False
+
+    @property
+    def for_win(self):
+        return self._for_win
