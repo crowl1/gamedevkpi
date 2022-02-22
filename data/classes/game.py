@@ -60,7 +60,7 @@ class GameField:
 
     def restore_field(self, old_field):
         self.field = old_field
-    
+
     def move_player(self, player):
         self.field[player.current_position.x][player.current_position.y] = 0
         self.field[player.next_position.x][player.next_position.y] = player.player_number
@@ -68,7 +68,7 @@ class GameField:
 
     def get_start_field(self):
         return self.field_preparation(self.fill())
-    
+
     @staticmethod
     def gen_graph(field):
         temp_field = []
@@ -89,7 +89,7 @@ class GameField:
                     temp_field[i].append(49)  # геймер
 
         return temp_field
-    
+
     @staticmethod
     def get_conn_points(field) -> list:
         conn_points = []
@@ -97,16 +97,20 @@ class GameField:
             for j in range(0, len(field[i]), 2):
                 if i != len(field) - 1 and j != len(field) - 1:
                     if field[i][j + 1] == 3:
-                        conn_points.append(((i / 2, j / 2), (i / 2, (j + 2) / 2)))
+                        conn_points.append(
+                            ((i / 2, j / 2), (i / 2, (j + 2) / 2)))
                     if field[i + 1][j] == 3:
-                        conn_points.append(((i / 2, j / 2), ((i + 2) / 2, j / 2)))
+                        conn_points.append(
+                            ((i / 2, j / 2), ((i + 2) / 2, j / 2)))
                 else:
                     if i == len(field) - 1 and j != len(field) - 1:
                         if field[i][j + 1] == 3:
-                            conn_points.append(((i / 2, j / 2), (i / 2, (j + 2) / 2)))
+                            conn_points.append(
+                                ((i / 2, j / 2), (i / 2, (j + 2) / 2)))
                     if j == len(field) - 1 and i != len(field) - 1:
                         if field[i + 1][j] == 3:
-                            conn_points.append(((i / 2, j / 2), ((i + 2) / 2, j / 2)))
+                            conn_points.append(
+                                ((i / 2, j / 2), ((i + 2) / 2, j / 2)))
         return conn_points
 
     @staticmethod
@@ -138,15 +142,13 @@ class GameField:
                 if i % 2 == 1 and j % 2 == 1:
                     field[i][j] = 5
         return field
-    
+
     @staticmethod
     def field_preparation(field):
         center_real = 8
         field[0][center_real] = 2
         field[-1][center_real] = 1
         return field
-
-
 
 
 class Player:
@@ -177,14 +179,14 @@ class Player:
             if self.current_position.x == 16:
                 return True
         return False
-    
+
     def decrease_wall_amount(self):
         if self.walls_amount != 0:
             self.walls_amount -= 1
 
     def increase_wall_amount(self):
         self.walls_amount += 1
-    
+
     def set_next_position(self, coordinate):
         for places in self.places_to_move:
             if coordinate.is_correct and coordinate.x == places.x and coordinate.y == places.y:
