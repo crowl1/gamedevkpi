@@ -1,6 +1,7 @@
 import copy
 
 from pathfinding.finder.a_star import AStarFinder
+from pathfinding.core.diagonal_movement import DiagonalMovement
 
 from data.classes.coordinate import Coordinate
 from data.classes.wall import Wall
