@@ -90,6 +90,23 @@ class Player:
             if self.current_position.x == 16:
                 return True
         return False
+    
+    def decrease_wall_amount(self):
+        if self.walls_amount != 0:
+            self.walls_amount -= 1
+
+    def increase_wall_amount(self):
+        self.walls_amount += 1
+    
+    def set_next_position(self, coordinate):
+        for places in self.places_to_move:
+            if coordinate.is_correct and coordinate.x == places.x and coordinate.y == places.y:
+                self.next_position = coordinate
+                self.can_move_here = True
+                break
+            else:
+                self.next_position = None
+                self.can_move_here = False
 
     def set_places_to_move(self, game_field, list_of_players=None, list_of_possible_moves=None, another_player=None,
                            flag=False) -> List:
