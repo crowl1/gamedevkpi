@@ -102,13 +102,13 @@ def get_all_moves(game_field, first_player, second_player, path):
 
 
 def get_all_step(player, path):
-    ind = -1
+    index = -1
     for index, step in enumerate(player.places_to_move):
         if step.x == path[2][1] and step.y == path[2][0]:
-            ind = index
+            index = index
             break
 
-    return ind
+    return index
 
 
 def get_all_walls(game_field, player_one, player_two, path_to_win):
