@@ -38,46 +38,46 @@ def print_field(field):
     a = 1
     if a == 0:
         num_horizontal = "    "
-        counter = 0
+        count = 0
         for item in field[0]:
-            if counter < 10:
-                num_horizontal += f"{counter}  "
-                counter += 1
+            if count < 10:
+                num_horizontal += f"{count}  "
+                count += 1
             else:
-                num_horizontal += f"{counter} "
-                counter += 1
+                num_horizontal += f"{count} "
+                count += 1
         print(num_horizontal)
 
         num_horizontal = "     "
-        counter = 0
+        count = 0
         for item in field[0]:
             if item == 0 or item == 1 or item == 2:
-                num_horizontal += f"{counter}"
-                counter += 1
+                num_horizontal += f"{count}"
+                count += 1
             else:
                 num_horizontal += "     "
         print(num_horizontal)
 
-        counter_1 = 0
-        counter_2 = 0
+        count_1 = 0
+        count_2 = 0
         for row in field:
             if row[0] == 0 or row[0] == 1 or row[0] == 2:
-                if counter_2 < 10:
-                    print(f"{counter_2}  {counter_1}{row}")
-                    counter_1 += 1
-                    counter_2 += 1
+                if count_2 < 10:
+                    print(f"{count_2}  {count_1}{row}")
+                    count_1 += 1
+                    count_2 += 1
                 else:
-                    print(f"{counter_2} {counter_1}{row}")
-                    counter_1 += 1
-                    counter_2 += 1
+                    print(f"{count_2} {count_1}{row}")
+                    count_1 += 1
+                    count_2 += 1
 
             else:
-                if counter_2 < 10:
-                    print(f"{counter_2}   {row}")
-                    counter_2 += 1
+                if count_2 < 10:
+                    print(f"{count_2}   {row}")
+                    count_2 += 1
                 else:
-                    print(f"{counter_2}  {row}")
-                    counter_2 += 1
+                    print(f"{count_2}  {row}")
+                    count_2 += 1
     else:
         for index, i in enumerate(field):
             for index2, j in enumerate(i):
@@ -107,14 +107,14 @@ def send_jump(player):
         f"jump {chr(int(player.current_position.y / 2 + 96) + 1).capitalize()}{int(player.current_position.x / 2) + 1}")
 
 
-def print_places_to_move(places_to_move):
+def print_places_to_move(places):
     '''
     перша лаба
     '''
-    counter = 1
-    for place in places_to_move:
-        print(f"{counter} - {place.x} {place.y}")
-        counter += 1
+    count = 1
+    for place in places:
+        print(f"{count} - {place.x} {place.y}")
+        count += 1
     print("Введіть 'back' щоб повернутися назад")
 
 
