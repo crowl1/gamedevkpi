@@ -199,7 +199,7 @@ def timer(func):
 
 def run_minimax(field_obj, depth, alpha, beta, maxPlayer, first_player, second_player):
     eval, acting = minimax_ai(field_obj, depth, alpha, beta,
-                          maxPlayer, first_player, second_player)
+                              maxPlayer, first_player, second_player)
     global count
     count = 0
     for kid in acting.children:
