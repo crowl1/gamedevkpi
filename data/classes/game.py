@@ -1,5 +1,3 @@
-from typing import List
-
 from pathfinding.core.grid import Grid
 from pathfinding.finder.a_star import AStarFinder
 from pathfinding.core.diagonal_movement import DiagonalMovement
@@ -15,12 +13,12 @@ class AI:
         self.action = act
         self.coord = coord
 
-    def move(self, player):
+    def move(self, player) -> int:
         for index, step in enumerate(player.places_to_move):
             if step.x == self.coord.x and step.y == self.coord.y:
                 return index + 1
 
-    def get_wall(self):
+    def get_wall(self) -> str:
         return f"{self.coord.coordinates_start.x} {self.coord.coordinates_start.y} {self.coord.coordinates_end.x} {self.coord.coordinates_end.y}"
 
     @minimaxai.timer
@@ -41,13 +39,13 @@ class GameField:
         self.field = self.get_start_field()
         self.graph = self.set_graph()
 
-    def game_over(self):
+    def game_over(self) -> bool:
         return True if 1 in self.field[0] or 2 in self.field[-1] else False
 
     def set_graph(self):
         return Grid(matrix=self.gen_graph(self.field))
 
-    def path_finder(self, players):
+    def path_finder(self, players) -> bool:
         grid = self.graph
         is_first_player_way = False
         is_second_player_way = False
@@ -100,7 +98,7 @@ class GameField:
         return self.field_preparation(self.fill())
 
     @staticmethod
-    def gen_graph(field):
+    def gen_graph(field) -> list:
         temp_field = []
         for i in range(len(field[0])):
             temp_field.append([])
@@ -144,7 +142,7 @@ class GameField:
         return conn_points
 
     @staticmethod
-    def fill():
+    def fill() -> list:
         field = []
 
         for row_index in range(9):
@@ -174,7 +172,7 @@ class GameField:
         return field
 
     @staticmethod
-    def field_preparation(field):
+    def field_preparation(field) -> list:
         center_real = 8
         field[0][center_real] = 2
         field[-1][center_real] = 1
@@ -201,7 +199,7 @@ class Player:
     def _set_start_position(self):
         return Coordinate(16, 8) if self.player_number == 1 else Coordinate(0, 8)
 
-    def is_win(self):
+    def is_win(self) -> bool:
         if self.player_number == 1:
             if self.current_position.x == 0:
                 return True
@@ -228,7 +226,7 @@ class Player:
                 self.can_move_here = False
 
     def set_places_to_move(self, game_field, list_of_players=None, list_of_possible_moves=None, another_player=None,
-                           flag=False) -> List:
+                           flag=False) -> list:
         if not flag:
             if self.player_number == list_of_players[0].player_number:
                 another_player = list_of_players[1]
@@ -331,10 +329,10 @@ class Player:
     def up(self):
         return Coordinate(self.current_position.x - 2, self.current_position.y)
 
-    def check_up(self, field):
+    def check_up(self, field) -> bool:
         return True if field[self.current_position.x - 1][self.current_position.y] == 3 else False
 
-    def player_check_up(self, second_player):
+    def player_check_up(self, second_player) -> bool:
         if self.current_position.x - 2 == second_player.x and self.current_position.y == second_player.y:
             return True
         return False
@@ -342,10 +340,10 @@ class Player:
     def down(self):
         return Coordinate(self.current_position.x + 2, self.current_position.y)
 
-    def check_down(self, field):
+    def check_down(self, field) -> bool:
         return True if field[self.current_position.x + 1][self.current_position.y] == 3 else False
 
-    def player_check_down(self, second_player):
+    def player_check_down(self, second_player) -> bool:
         if self.current_position.x + 2 == second_player.x and self.current_position.y == second_player.y:
             return True
         return False
@@ -353,10 +351,10 @@ class Player:
     def left(self):
         return Coordinate(self.current_position.x, self.current_position.y - 2)
 
-    def check_left(self, field):
+    def check_left(self, field) -> bool:
         return True if field[self.current_position.x][self.current_position.y - 1] == 3 else False
 
-    def player_check_left(self, second_player):
+    def player_check_left(self, second_player) -> bool:
         if self.current_position.x == second_player.x and self.current_position.y - 2 == second_player.y:
             return True
         return False
@@ -364,10 +362,10 @@ class Player:
     def right(self):
         return Coordinate(self.current_position.x, self.current_position.y + 2)
 
-    def check_right(self, field):
+    def check_right(self, field) -> bool:
         return True if field[self.current_position.x][self.current_position.y + 1] == 3 else False
 
-    def player_check_right(self, second_player):
+    def player_check_right(self, second_player) -> bool:
         if self.current_position.x == second_player.x and self.current_position.y + 2 == second_player.y:
             return True
         return False
