@@ -11,10 +11,11 @@ class Coordinate:
         except Exception:
             return False
 
-    def is_in(self, find) -> int: #TODO refactor
+    def is_in(self, find) -> int:
         count = 1
         for item in find:
             if item.x == self.x and item.y == self.y:
                 return count
-            count += 1
+            else:
+                count += 1
         return None

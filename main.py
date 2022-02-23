@@ -10,36 +10,24 @@ from data.classes.wall import Wall
 
 def start_game():
     game_field = GameField()  # створюємо поле
-    first_player = Player(True, 1)
-    second_player = Player(False, 2)
-    #game_mode_selection()  # перша лаба, вибір для гравця
-    game_mode = User.ask_game_mode()
-    if game_mode == "1":
-        first_player = Player(True, 2)
-        second_player = Player(True, 1)
-    elif game_mode == "2":
-        first_player = Player(True, 1)
-        second_player = Player(False, 2)
-    elif game_mode == "4":
-        first_player = Player(False, 1)
-        second_player = Player(True, 2)
-    elif game_mode == "3":
-        first_player = Player(False, 1)
-        second_player = Player(False, 2)
+    game_mode_choice = game_mode()
+
+    if game_mode_choice:
+        first_player, second_player = game_mode_choice
     else:
         start_game()
 
     list_of_players = [first_player, second_player]
-    counter = 0
-    number_moves = 0  # Кількість ходів
+    count = 0
+    count_moves = 0  # Кількість ходів
 
     while not first_player.is_win() or not second_player.is_win():
-        game(list_of_players[counter], game_field, list_of_players)
+        game(list_of_players[count], game_field, list_of_players)
         if first_player.is_win() or second_player.is_win():
             sys.exit()
         game_field.graph = game_field.set_graph()
-        number_moves += 1
-        counter = 1 if counter == 0 else 0
+        count_moves += 1
+        count = 1 if count == 0 else 0
         # clear_console() #перша лаба
     sys.exit()
 
@@ -81,6 +69,25 @@ def build_wall(player, game_field, list_of_players, count=0):
         else:
             game(player, game_field, list_of_players)
 
+def game_mode():
+    #game_mode_selection()  # перша лаба, вибір для гравця
+    game_mode = User.ask_game_mode()
+    if game_mode == "1":
+        first_player = Player(True, 2)
+        second_player = Player(True, 1)
+    elif game_mode == "2":
+        first_player = Player(True, 1)
+        second_player = Player(False, 2)
+    elif game_mode == "4":
+        first_player = Player(False, 1)
+        second_player = Player(True, 2)
+    elif game_mode == "3":
+        first_player = Player(False, 1)
+        second_player = Player(False, 2)
+    else:
+        return None
+    
+    return first_player, second_player
 
 def move_player(player, game_field, list_of_players):
     #Tools.clear_console() #перша лаба

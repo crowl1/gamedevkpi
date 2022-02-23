@@ -25,7 +25,7 @@ class AI:
     def choose(self, player, game_field, list_of_players):
         player_two = list_of_players[1] if list_of_players[0].player_number == player.player_number else list_of_players[0]
         bot_doing = minimaxai.run_minimax(game_field, depth=2, alpha=-inf, beta=+
-                                         inf, maxPlayer=True, first_player=player, second_player=player_two)
+                                          inf, maxPlayer=True, first_player=player, second_player=player_two)
         if type(bot_doing) == Wall or type(bot_doing) == Wall:
             self.action = "2"
             self.coord = bot_doing
@@ -33,6 +33,7 @@ class AI:
             self.action = "1"
             self.coord = bot_doing
         return self.action
+
 
 class GameField:
     def __init__(self):
