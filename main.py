@@ -56,8 +56,8 @@ def build_wall(player, game_field, list_of_players, count=0):
                         if first and second and not third:
                             game_field.set_wall(wall)
                             player.decrease_wall_amount()
-                            #if player.player_type is False:
-                            #    send_wall(wall)
+                            if player.player_type is False:
+                                send_wall(wall)
                         else:
                             build_wall(player, game_field,
                                      list_of_players, count + 1)
