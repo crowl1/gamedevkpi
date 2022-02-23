@@ -236,7 +236,7 @@ class Player:
             list_of_possible_moves = []
         if self.current_position.x - 2 >= 0:  # UP
             if self.check_up(game_field.field):
-                if not self.player_check_up(game_field.field, another_player.current_position):
+                if not self.player_check_up(another_player.current_position):
                     list_of_possible_moves.append(self.up())
                 elif self.current_position.x - 3 >= 0 and game_field.field[self.current_position.x - 3][self.current_position.y] == 4 and flag is False:
                     self.is_jump = True
@@ -256,7 +256,7 @@ class Player:
 
         if self.current_position.y + 2 <= 16:  # RIGHT
             if self.check_right(game_field.field):
-                if not self.player_check_right(game_field.field, another_player.current_position):
+                if not self.player_check_right(another_player.current_position):
                     list_of_possible_moves.append(self.right())
                 elif self.current_position.y + 3 <= 16 and game_field.field[self.current_position.x][self.current_position.y + 3] == 4 and flag is False:
                     self.is_jump = True
@@ -276,7 +276,7 @@ class Player:
 
         if self.current_position.x + 2 <= 16:  # DOWN
             if self.check_down(game_field.field):
-                if not self.player_check_down(game_field.field, another_player.current_position):
+                if not self.player_check_down(another_player.current_position):
                     list_of_possible_moves.append(self.down())
                 elif self.current_position.x + 3 <= 16 and game_field.field[self.current_position.x + 3][self.current_position.y] == 4 and flag is False:
                     self.is_jump = True
@@ -296,7 +296,7 @@ class Player:
 
         if self.current_position.y - 2 >= 0:  # LEFT
             if self.check_left(game_field.field):
-                if not self.player_check_left(game_field.field, another_player.current_position):
+                if not self.player_check_left(another_player.current_position):
                     list_of_possible_moves.append(self.left())
                 elif self.current_position.y - 3 >= 0 and game_field.field[self.current_position.x][self.current_position.y - 3] == 4 and flag is False:
                     self.is_jump = True

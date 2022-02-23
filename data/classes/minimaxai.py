@@ -54,7 +54,7 @@ def minimax_ai(obj_minimax, depth, alpha, beta, maximizingPlayer, player_one, pl
                           player_one, player_two, path_second)
     for wall in walls:
         obj_minimax.children.append(
-            MinimaxAI(wall[0], wall[1], wall[2], wall[3], depth, obj_minimax))
+            MinimaxAI(wall[0], wall[1], wall[2], wall[3], depth))
     next_move_one_player = get_all_moves(
         obj_minimax.game_field, player_one, player_two, path_first)
     obj_minimax.children.append(

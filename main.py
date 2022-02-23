@@ -12,7 +12,7 @@ def start_game():
     game_field = GameField()  # створюємо поле
     first_player = Player(True, 1)
     second_player = Player(False, 2)
-    game_mode_selection()  # перша лаба, вибір для гравця
+    #game_mode_selection()  # перша лаба, вибір для гравця
     game_mode = User.ask_game_mode()
     if game_mode == "1":
         first_player = Player(True, 2)
@@ -44,12 +44,12 @@ def start_game():
     sys.exit()
 
 
-def build_wall(player, game_field, list_of_players, counter=0):
-    Tools.clear_console() #перша лаба
-    print_field(game_field.field) #перша лаба
-    if counter < 5:
+def build_wall(player, game_field, list_of_players, count=0):
+    #Tools.clear_console() #перша лаба
+    #print_field(game_field.field) #перша лаба
+    if count < 5:
         if player.walls_amount > 0:
-            place_the_wall_message() #перша лаба
+            #place_the_wall_message() #перша лаба
             wall_input = User.enter(player, "wall")
             if wall_input == "back":
                 game(player, game_field, list_of_players)
@@ -72,21 +72,21 @@ def build_wall(player, game_field, list_of_players, counter=0):
                                 send_wall(wall)
                         else:
                             build_wall(player, game_field,
-                                     list_of_players, counter + 1)
+                                     list_of_players, count + 1)
                     except Exception as e:
                         build_wall(player, game_field,
-                                 list_of_players, counter + 1)
+                                 list_of_players, count + 1)
                 else:
-                    build_wall(player, game_field, list_of_players, counter + 1)
+                    build_wall(player, game_field, list_of_players, count + 1)
         else:
             game(player, game_field, list_of_players)
 
 
 def move_player(player, game_field, list_of_players):
-    Tools.clear_console() #перша лаба
-    print_field(game_field.field) #перша лаба
+    #Tools.clear_console() #перша лаба
+    #print_field(game_field.field) #перша лаба
     player.set_places_to_move(game_field, list_of_players)
-    print_places_to_move(player.places_to_move) #перша лаба
+    #print_places_to_move(player.places_to_move) #перша лаба
     try:
         move_player_input = User.enter(player, "move")
         if player.action is not None:
@@ -112,9 +112,9 @@ def move_player(player, game_field, list_of_players):
 
 
 def game(player, game_field, list_of_players):
-    Tools.clear_console() #перша лаба
-    print_field(game_field.field) #перша лаба
-    choose_action_message(player) #перша лаба
+    #Tools.clear_console() #перша лаба
+    #print_field(game_field.field) #перша лаба
+    #choose_action_message(player) #перша лаба
     game_input = User.enter(player, "choose", game_field, list_of_players)
     if game_input == "1":
         move_player(player, game_field, list_of_players)
